@@ -1,56 +1,66 @@
 {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Hestia</title>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Hestia</title>
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+              crossorigin="anonymous">
+        <link href="{% static 'style/style.css' %}" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="{% static '/images/favicon.ico' %}">
+    </head>
+    <body>
+    <header>
+        <nav class="navbar">
+            <a class='logo' href="{% url 'index' %}">
+                <img width="250px" src="{% static '/images/hestia_no_crown_no_bg_white.png' %}" alt="hestia_logo">
+            </a>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" style="color: aliceblue" href="#">Search Listings</a>
+                </li>
+                {% if request.user.is_authenticated %}
 
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link href="{% static 'style/layout.css' %}" rel="stylesheet">
-</head>
-<body>
-<header>
-    <nav class="navbar">
-        <a class='logo' href="{% url 'index' %}">
-            <img width="250px" src="{% static '/images/hestia_no_crown_no_bg_white.png' %}" alt="hestia_logo">
-        </a>
-        <ul class="nav">
-            {# if no profile #}
-            <li class="nav-item">
-                <a class="nav-link active" style="color: aliceblue" href="#">Create Profile</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" style="color: aliceblue" href="#">Log In</a>
-            </li>
-            {# if profile #}
-            <li class="nav-item">
-                <a class="nav-link" style="color: aliceblue" href="#">Search Listings</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" style="color: aliceblue" href="#">Profile</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" style="color: aliceblue"  href="#">About Us</a>
-            </li>
-        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: aliceblue" href="#">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: aliceblue" href="{% url 'log out' %}">Log Out</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" style="color: aliceblue" href="{% url 'register' %}">Create
+                            Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" style="color: aliceblue" href="{% url 'log in' %}">Log In</a>
+                    </li>
+                {% endif %}
 
-    </nav>
+            </ul>
 
-</header>
+        </nav>
 
-<main>
-    {% block page_content %}
-    {% endblock %}
-</main>
+    </header>
 
-<div class="footer" style="background-color: #272626">
+    <main>
+        {% block page_content %}
+        {% endblock %}
+    </main>
+
+    <div class="footer">
 		<span class="footer-section">
+            <div class="socials">
+
+                <a href="https://www.instagram.com/radoslaww___/">Instagram</a>
+                <a href="https://www.instagram.com/radoslaww___/">Facebook</a>
+            </div>
             <h6>© 2022 HESTIA</h6>
         </span>
-</div>
+    </div>
 
-</body>
-</html>
+    </body>
+    </html>
