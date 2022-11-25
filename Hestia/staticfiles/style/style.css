@@ -1,0 +1,58 @@
+@import "login.css";
+
+body {
+    background-color: aliceblue;
+}
+
+.navbar {
+    background-color: #272626;
+}
+
+
+.footer-section {
+   background-color: #272626;
+    color: aliceblue;
+    text-align: center;
+}
+
+.socials {
+    padding: 20px;
+    text-align: center;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.socials a {
+    text-decoration: none;
+    color: aliceblue;
+    margin: 20px;
+
+}
+
+.footer {
+    background-color: #272626;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.logo {
+    padding: 10px;
+}
+
+.nav-item {
+    font-size: 20px;
+}
+
+.banner {
+    width: 70%;
+    border-radius: 2%;
+    align-content: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1.text {
+    text-align: center;
+}

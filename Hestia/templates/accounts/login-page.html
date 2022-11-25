@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load placeholders %}
+
+
+
+
+{% block page_content %}
+    <div id="container">
+    <img class='banner' src="{% static 'images/banner.jpg'%}">
+        <div class="login-register-div">
+            <div class="login-register-box">
+                <h1>Hestia</h1>
+                <form action="{% url 'log in' %}" method="post">
+                    {{ form }}
+                    <input type="hidden" name="next" value="{{ next }}">
+                    <button>Log In</button>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

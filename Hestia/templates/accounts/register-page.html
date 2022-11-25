@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load placeholders %}
+{% load static %}
+
+{% block page_content %}
+    <div id="container">
+        <img class='banner' src="{% static 'images/banner.jpg' %}">
+        <div class="login-register-div">
+            <div class="login-register-box">
+                <h1>Hestia</h1>
+                <form action="{% url 'register' %}" method="post">
+                    {{ form.username.errors }}
+                    {{ form.username|placeholder:'Username' }}
+                    {{ form.email.errors }}
+                    {{ form.email|placeholder:'Email' }}
+                    {{ form.password1.errors }}
+                    {{ form.password1|placeholder:'Password' }}
+                    {{ form.password2.errors }}
+                    {{ form.password2|placeholder:'Repeat Password' }}
+                    <button>Register!</button>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
