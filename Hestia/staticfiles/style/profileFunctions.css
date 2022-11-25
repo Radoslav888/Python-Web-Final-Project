@@ -1,0 +1,80 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+
+.delete-profile {
+    margin-top: 5vh;
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu,
+        Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.delete-profile h1 {
+    text-align: center;
+    margin: 25px;
+}
+
+.sure-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+    z-index: 2;
+}
+
+.sure-buttons button, .sure-buttons a {
+    padding: 5px 10px 5px 10px;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 2px 3px #888888;
+    z-index: 2;
+}
+
+.sure-buttons button {
+    background-color: #ff0000;
+}
+
+
+.sure-buttons a {
+    background-color: #007c00;
+    text-decoration: none;
+}
+
+.delete-profile img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+    height: 25%;
+}
+
+
+label {
+    width: 100px;
+}
+
+.edit-delete {
+    border: black solid 2px;
+    margin: 100px 40% 0 40%;
+    padding: 20px;
+}
+.edit-delete h2{
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.edit-delete form {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.edit-delete form input {
+    width: 100%;
+}
+
+.edit-delete button{
+   margin-top: 20px;
+}
+
+

@@ -5,7 +5,6 @@ from django.contrib.auth import views as auth_views, get_user_model, login
 
 from Hestia.accounts.forms import UserCreateForm
 
-
 UserModel = get_user_model()
 
 
@@ -28,3 +27,31 @@ class SignUpView(views.CreateView):
 
 class SignOutView(auth_views.LogoutView):
     next_page = reverse_lazy('index')
+
+
+class UserDetailsView(views.DetailView):
+    template_name = 'accounts/profile-details-page.html'
+    model = UserModel
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_owner'] = self.request.user == self.object
+
+        return context
+
+
+class EditUserView(views.UpdateView):
+    template_name = 'accounts/profile-edit-page.html'
+    model = UserModel
+    fields = ('first_name', 'last_name', 'email')
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('details user', kwargs={
+            'pk': self.request.user.pk,
+        })
+
+
+class UserDeleteView(views.DeleteView):
+    template_name = 'accounts/profile-delete-page.html'
+    model = UserModel
+    success_url = reverse_lazy('index')

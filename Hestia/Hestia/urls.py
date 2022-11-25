@@ -6,4 +6,5 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin site'),
     path('', include('Hestia.common.urls')),
     path('accounts/', include('Hestia.accounts.urls')),
+
 ]
