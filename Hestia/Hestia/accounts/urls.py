@@ -1,7 +1,7 @@
-
-
+from django.conf.urls.static import static
 from django.urls import path, include
 
+from Hestia import settings
 from Hestia.accounts.views import SignInView, SignUpView, SignOutView, UserDetailsView, EditUserView, UserDeleteView
 
 urlpatterns = [
@@ -14,3 +14,6 @@ urlpatterns = [
         path('delete/', UserDeleteView.as_view(), name='delete user'),
     ])),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

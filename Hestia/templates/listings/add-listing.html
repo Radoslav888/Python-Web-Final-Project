@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_content %}
+    <form action="{% url 'add listing' %}" method="post">
+        {{ listing_form }}
+        {% csrf_token %}
+        <button>Next!</button>
+    </form>
+{% endblock %}
