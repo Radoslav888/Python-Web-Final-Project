@@ -12,3 +12,10 @@ class ListingBaseForm(forms.ModelForm):
 class ListingCreateForm(ListingBaseForm):
     pass
 
+
+class PhotoForm(forms.ModelForm):
+    image = forms.ImageField(label='Image')
+
+    class Meta:
+        model = Photo
+        fields = ('image', )

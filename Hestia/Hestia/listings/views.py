@@ -1,7 +1,9 @@
 from django.contrib.auth.decorators import login_required
+from django.core import exceptions
+from django.forms import modelformset_factory
 from django.shortcuts import render, redirect
 
-from Hestia.listings.forms import ListingCreateForm
+from Hestia.listings.forms import ListingCreateForm, PhotoForm
 from Hestia.listings.models import Photo, Listing
 
 
@@ -9,29 +11,32 @@ from Hestia.listings.models import Photo, Listing
 
 @login_required
 def add_listing(request):
-    if request.method == 'GET':
-        form = ListingCreateForm()
+    ImageFormSet = modelformset_factory(Photo,
+                                        form=PhotoForm, extra=5)
+    if request.method == 'POST':
+        ListingForm = ListingCreateForm(request.POST)
+        formset = ImageFormSet(request.POST, request.FILES,
+                               queryset=Photo.objects.none())
+
+        if ListingForm.is_valid() and formset.is_valid():
+            listing_form = ListingForm.save(commit=False)
+            listing_form.user = request.user
+            listing_form.save()
+
+            for form in formset.cleaned_data:
+                if form:
+                    image = form['image']
+                    photo = Photo(post=listing_form, image=image)
+                    photo.save()
+            redirect('index')
+        else:
+            print(ListingForm.errors, formset.errors)
     else:
-        form = ListingCreateForm(request.POST)
-        if form.is_valid():
-            listing = form.save(commit=False)
-            listing.user = request.user
-            listing.save()
-            return redirect('add photos', pk=listing.pk)
+        ListingForm = ListingCreateForm()
+        formset = ImageFormSet(queryset=Photo.objects.none())
     context = {
-        'listing_form': form,
+        'listing_form': ListingForm,
+        'formset': formset,
     }
     return render(request, 'listings/add-listing.html', context)
 
-@login_required
-def add_photos(request, pk):
-    listing = Listing.objects.filter(pk=pk).get()
-    if request.method == "POST":
-        images = request.FILES.getlist('images')
-        for image in images:
-            Photo.objects.create(image=image, listing=listing)
-    images = Photo.objects.filter(listing=listing)
-    context = {
-        'images': images,
-    }
-    return render(request, 'listings/add-photo.html', context)

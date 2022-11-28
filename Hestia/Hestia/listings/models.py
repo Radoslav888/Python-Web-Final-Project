@@ -83,7 +83,7 @@ class Listing(models.Model):
 
 
 class Photo(models.Model):
-    image = models.FileField(
+    image = models.ImageField(
         upload_to='listing_photos/',
         null=False,
         blank=True,
