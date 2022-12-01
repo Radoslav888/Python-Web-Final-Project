@@ -1,20 +1,25 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block page_content %}
-    <form method="post" action="{% url 'add listing' %}" enctype="multipart/form-data">
-    {% csrf_token %}
-{#    {% for hidden in postForm.hidden_fields %}#}
-{#        {{ hidden }}#}
-{#    {% endfor %}#}
+    <div id="container-listing">
+        <div class="listing-form">
+            <div class="listing-form-box">
+                <form method="post" action="{% url 'add listing' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {% for hidden in postForm.hidden_fields %}
+                            {{ hidden }}
+                        {% endfor %}
 
-    {{ listing_form }}
+                    {{ listing_form.as_p }}
+                    {{ formset.management_form }}
+                    {% for form in formset %}
+                        <div class="file-upload">{{ form }}</div>
+                    {% endfor %}
 
-    {{ formset.management_form }}
-    {% for form in formset %}
-        {{ form }}
-    {% endfor %}
 
-
-    <input type="submit" name="submit" value="Submit" />
-</form>
+                    <input type="submit" name="submit" value="Submit"/>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

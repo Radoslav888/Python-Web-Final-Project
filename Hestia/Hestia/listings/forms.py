@@ -10,7 +10,17 @@ class ListingBaseForm(forms.ModelForm):
 
 
 class ListingCreateForm(ListingBaseForm):
-    pass
+    class Meta:
+        model = Listing
+        exclude = ('publication_date', 'user', 'slug')
+        widgets = {
+            'description': forms.Textarea(
+                attrs={
+                    'cols': 40,
+                    'rows': 10,
+                },
+            ),
+        }
 
 
 class PhotoForm(forms.ModelForm):

@@ -1,11 +1,15 @@
+from django.contrib.auth import get_user_model
+from django.views import generic as views
 from django.contrib.auth.decorators import login_required
 from django.core import exceptions
 from django.forms import modelformset_factory
-from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from Hestia.listings.forms import ListingCreateForm, PhotoForm
 from Hestia.listings.models import Photo, Listing
 
+UserModel = get_user_model()
 
 # Create your views here.
 
@@ -26,9 +30,9 @@ def add_listing(request):
             for form in formset.cleaned_data:
                 if form:
                     image = form['image']
-                    photo = Photo(post=listing_form, image=image)
+                    photo = Photo(listing=listing_form, image=image)
                     photo.save()
-            redirect('index')
+            return redirect('index')
         else:
             print(ListingForm.errors, formset.errors)
     else:
@@ -40,3 +44,20 @@ def add_listing(request):
     }
     return render(request, 'listings/add-listing.html', context)
 
+
+def city_listings(request, slug):
+    context = {
+
+    }
+    return render(request, 'listings/city-listing.html', context)
+
+
+class ListingDetailsView(views.DetailView):
+    template_name = 'listings/listing-details.html'
+    model = Listing
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_owner'] = self.request.user == self.object
+        context['user_profile'] = UserModel.objects.filter(pk=self.object.user_id).get()
+        return context

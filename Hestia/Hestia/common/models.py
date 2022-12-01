@@ -20,3 +20,11 @@ class City(models.Model):
         blank=False,
     )
 
+    slug = models.SlugField(
+        unique=True,
+    )
+
+    def __str__(self):
+        return self.name
+
+

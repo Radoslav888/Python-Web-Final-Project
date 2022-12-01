@@ -3,6 +3,7 @@ from enum import Enum
 from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator
 from django.db import models
+from django.utils.text import slugify
 
 from Hestia.common.models import City
 from Hestia.core.validators import validate_file_less_than_5mb
@@ -41,15 +42,18 @@ class Listing(models.Model):
         ),
         null=False,
         blank=False,
+        verbose_name='Listing name'
     )
-    price = models.PositiveIntegerField(
+    price = models.FloatField(
         null=False,
         blank=False,
+        verbose_name='Price in EUR'
     )
 
     size = models.PositiveIntegerField(
         null=False,
         blank=False,
+        verbose_name='Size(km2)'
     )
     type = models.CharField(
         choices=Type.choices(),
@@ -80,6 +84,20 @@ class Listing(models.Model):
         UserModel,
         on_delete=models.RESTRICT,
     )
+
+    slug = models.SlugField(
+        unique=True,
+        null=False,
+        blank=True,
+    )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if not self.slug:
+            self.slug = slugify(f'{self.id}-{self.name}')
+
+        return super().save(*args, **kwargs)
 
 
 class Photo(models.Model):
