@@ -33,7 +33,7 @@ class Listing(models.Model):
     MAX_NAME_LENGTH = 50
 
     MIN_DESCRIPTION_LENGTH = 10
-    MAX_DESCRIPTION_LENGTH = 300
+    MAX_DESCRIPTION_LENGTH = 600
 
     name = models.CharField(
         max_length=MAX_NAME_LENGTH,
@@ -60,7 +60,7 @@ class Listing(models.Model):
         max_length=Type.max_len(),
     )
 
-    description = models.CharField(
+    description = models.TextField(
         max_length=MAX_DESCRIPTION_LENGTH,
         validators=(
             MinLengthValidator(MIN_DESCRIPTION_LENGTH),

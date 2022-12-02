@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_content %}
+    <div class="info">
+        <h1>Listings in {{ city.name }}</h1>
+        <a href="{% url 'index' %}#city-select">Change city</a>
+    </div>
+
+    <div class="listing-section">
+        {% for listing in listings %}
+            <div class="listing-view">
+                <div class="listing-image">
+                    {%  if listing.photo_set.first.image %}
+                    <a href="{% url 'listing details' slug=listing.slug %}"><img
+                            src="/media/{{ listing.photo_set.first.image }}" alt="listing photo"></a>
+                    {% else %}
+                        <a href="{% url 'listing details' slug=listing.slug %}"><img
+                            src="{% static 'images/no-image.jpg' %}" alt="listing photo"></a>
+                    {% endif %}
+                </div>
+                <div class="listing-info">
+                    <a href="{% url 'listing details' slug=listing.slug %}">{{ listing.name }}</a>
+                    <h3>{{ listing.price|floatformat:'-2g' }} EUR</h3>
+                    <h3>{{ listing.type }}</h3>
+                    <h3>{{ listing.size }}</h3>
+                    <h4>{{ listing.description }}</h4>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+    {% if listings.has_other_pages %}
+        <nav class="paginator">
+            <ul class="pagination justify-content-center">
+                {% if listings.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ listings.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link" aria-hidden="true">&laquo;</span>
+                    </li>
+                {% endif %}
+
+                {% for p in listings.paginator.page_range %}
+                    {% if listings.number == p %}
+                        <li class="page-item"><a class="page-link" style="color: darkgoldenrod;" href="#">{{ p }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if listings.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ listings.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link" aria-hidden="true">&raquo;</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+
+
+{% endblock %}

@@ -3,11 +3,12 @@
 {% block page_content %}
     <div class="banner">
         <img class='banner' src="{% static 'images/banner.jpg' %}" alt="banner">
+        {{ average_price }}
     </div>
     <div class="info">
         <h1 class='text'>Explore listings all over Bulgaria!</h1>
     </div>
-    <div class="city-select">
+    <div class="city-select" id="city-select">
         {% for city in cities %}
             <div class="image-wrap">
                 <a href="{% url 'city listings' slug=city.slug %}">

@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views import generic as views
 from django.contrib.auth.decorators import login_required
 from django.core import exceptions
@@ -6,6 +7,7 @@ from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 
+from Hestia.common.models import City
 from Hestia.listings.forms import ListingCreateForm, PhotoForm
 from Hestia.listings.models import Photo, Listing
 
@@ -46,8 +48,21 @@ def add_listing(request):
 
 
 def city_listings(request, slug):
-    context = {
+    city = City.objects.filter(slug=slug).get()
+    listings = city.listing_set.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(listings, 2)
 
+    try:
+        listings = paginator.page(page)
+    except PageNotAnInteger:
+        listings = paginator.page(1)
+    except EmptyPage:
+        listings = paginator.page(paginator.num_pages)
+
+    context = {
+        'listings': listings,
+        'city': city,
     }
     return render(request, 'listings/city-listing.html', context)
 

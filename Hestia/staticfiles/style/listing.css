@@ -8,7 +8,6 @@
 }
 
 
-
 .mySlidesHestia {
     width: auto;
     display: none
@@ -29,6 +28,7 @@
 .info-container {
     border: 2px solid;
 }
+
 .profile-info-container {
     display: inline-block;
 }
@@ -59,4 +59,59 @@
 .prev:hover,
 .next:hover {
     background-color: rgba(0, 0, 0, 0.8);
+}
+
+.info {
+    text-align: center;
+    margin: 30px;
+}
+
+.info a {
+    text-decoration: none;
+    color: darkgoldenrod;
+}
+
+.listing-section {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    margin-top: 20px;
+    padding: 50px;
+
+    background-position: right 35% bottom 45%;
+    box-sizing: border-box;
+    border-radius: 15px;
+    height: auto;
+}
+
+.listing-view {
+    border-bottom: 2px solid black;
+    margin: 2px;
+    width: 100%;
+}
+.listing-info{
+    display: inline-block;
+    width: 70%;
+}
+.listing-image{
+    display: inline-block;
+    width: 15%;
+    margin: 10px;
+}
+.listing-view img{
+    width: 100%;
+    display: inline-block;
+}
+.listing-info h3{
+}
+.listing-info h3{
+
+}
+.listing-info h4{
+    font-size: 13px;
+}
+
+.paginator {
+    background-color: darkgoldenrod;
 }

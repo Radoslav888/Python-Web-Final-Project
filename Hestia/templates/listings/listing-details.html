@@ -3,57 +3,66 @@
 {% block page_content %}
     <div class="listing">
         <div class="slideshow-container-hestia">
-            {% for photo in object.photo_set.all %}
+            {% if object.photo_set.all %}
+                {% for photo in object.photo_set.all %}
+                    <div class="mySlidesHestia">
+                        <img src="/media/{{ photo.image }}" alt="listing photo">
+                    </div>
+                {% endfor %}
+            {% else %}
                 <div class="mySlidesHestia">
-                    <img src="/media/{{ photo.image }}" alt="listing photo">
+                    <img src="{% static 'images/no-image.jpg' %}" alt="listing photo">
                 </div>
-            {% endfor %}
+            {% endif %}
             <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
             <a class="next" onclick="plusSlides(1)">&#10095;</a>
         </div>
-    <div class="profile-info-container">
-        {% if user_profile.get_full_name %}
-            {{ user_profile.get_full_name }}
-        {% else %}
-            {{ user_profile.username }}
-        {% endif %}
-    </div>
-    <div class="info-container">
-        <h1>{{ object.name }}</h1>
-        <h2>{{ object.price|floatformat:"g" }} EUR</h2>
-        <p>{{ object.description }}</p>
-    </div>
+        <div class="profile-info-container">
+            {% if user_profile.get_full_name != ' ' %}
+                {{ user_profile.get_full_name }}
+            {% else %}
+                {{ user_profile.username }}
+            {% endif %}
+        </div>
+        <div class="info-container">
+            <h1>{{ object.name }}</h1>
+            <h2>{{ object.price|floatformat:"g" }} EUR</h2>
+            <p>{{ object.description }}</p>
+        </div>
 
     </div>
 
     <script>
-      var slideIndex = 1;
-      showSlides(slideIndex);
-      function plusSlides(n) {
-        showSlides(slideIndex += n);
-      }
-      function currentSlide(n) {
-        showSlides(slideIndex = n);
-      }
-      function showSlides(n) {
-        var i;
-        var slides = document.getElementsByClassName("mySlidesHestia");
-        var dots = document.getElementsByClassName("dot");
-        if(n > slides.length) {
-          slideIndex = 1
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
         }
-        if(n < 1) {
-          slideIndex = slides.length
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
         }
-        for(i = 0; i < slides.length; i++) {
-          slides[i].style.display = "none";
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlidesHestia");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) {
+                slideIndex = 1
+            }
+            if (n < 1) {
+                slideIndex = slides.length
+            }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
         }
-        for(i = 0; i < dots.length; i++) {
-          dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
-      }
     </script>
 
 {% endblock %}

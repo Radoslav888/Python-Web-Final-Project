@@ -14,6 +14,14 @@ class AppUser(AbstractUser):
     MAX_LEN_FIRST_NAME = 30
     MAX_LEN_LAST_NAME = 30
 
+    username = models.CharField(
+        max_length=30,
+        unique=True,
+        error_messages={
+            "unique": "A user with that username already exists.",
+        },
+    )
+
     first_name = models.CharField(
         max_length=MAX_LEN_FIRST_NAME,
         validators=(
