@@ -51,7 +51,7 @@ def city_listings(request, slug):
     city = City.objects.filter(slug=slug).get()
     listings = city.listing_set.all()
     page = request.GET.get('page', 1)
-    paginator = Paginator(listings, 2)
+    paginator = Paginator(listings, 3)
 
     try:
         listings = paginator.page(page)

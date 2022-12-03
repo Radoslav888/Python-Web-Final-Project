@@ -6,7 +6,7 @@ from django.db import models
 from django.utils.text import slugify
 
 from Hestia.common.models import City
-from Hestia.core.validators import validate_file_less_than_5mb
+from Hestia.core.validators import validate_file_less_than_5mb, validate_image_size
 
 UserModel = get_user_model()
 
@@ -105,7 +105,7 @@ class Photo(models.Model):
         upload_to='listing_photos/',
         null=False,
         blank=True,
-        validators=(validate_file_less_than_5mb,),
+        validators=(validate_file_less_than_5mb, validate_image_size),
     )
 
     listing = models.ForeignKey(

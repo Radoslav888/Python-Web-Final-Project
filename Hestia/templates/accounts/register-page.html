@@ -11,6 +11,8 @@
                 <form action="{% url 'register' %}" method="post">
                     {{ form.username.errors }}
                     {{ form.username|placeholder:'Username' }}
+                    {{ form.phone_number.errors }}
+                    {{ form.phone_number|placeholder:'Phone Number' }}
                     {{ form.email.errors }}
                     {{ form.email|placeholder:'Email' }}
                     {{ form.password1.errors }}

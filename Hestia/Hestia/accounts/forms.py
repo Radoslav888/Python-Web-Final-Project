@@ -17,7 +17,7 @@ class UserEditForm(UserChangeForm):
 class UserCreateForm(UserCreationForm):
     class Meta:
         model = UserModel
-        fields = ('username', 'email')
+        fields = ('username', 'email', 'phone_number')
         field_classes = {
             'username': UsernameField,
             }

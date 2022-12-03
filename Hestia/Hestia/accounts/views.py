@@ -43,7 +43,7 @@ class UserDetailsView(views.DetailView):
 class EditUserView(views.UpdateView):
     template_name = 'accounts/profile-edit-page.html'
     model = UserModel
-    fields = ('first_name', 'last_name', 'email')
+    fields = ('first_name', 'last_name', 'email', 'phone_number')
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('details user', kwargs={

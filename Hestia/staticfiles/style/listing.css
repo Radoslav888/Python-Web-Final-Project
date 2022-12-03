@@ -103,10 +103,14 @@
     width: 100%;
     display: inline-block;
 }
-.listing-info h3{
+.listing-info a{
+    text-decoration: none;
+    color: darkgoldenrod;
+    font-size: 25px;
 }
-.listing-info h3{
 
+.listing-info h3{
+    font-size: 20px;
 }
 .listing-info h4{
     font-size: 13px;

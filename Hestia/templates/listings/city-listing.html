@@ -21,8 +21,8 @@
                 <div class="listing-info">
                     <a href="{% url 'listing details' slug=listing.slug %}">{{ listing.name }}</a>
                     <h3>{{ listing.price|floatformat:'-2g' }} EUR</h3>
-                    <h3>{{ listing.type }}</h3>
-                    <h3>{{ listing.size }}</h3>
+                    <h3>Type: {{ listing.type }}</h3>
+                    <h3>Size: {{ listing.size }} km2</h3>
                     <h4>{{ listing.description }}</h4>
                 </div>
 

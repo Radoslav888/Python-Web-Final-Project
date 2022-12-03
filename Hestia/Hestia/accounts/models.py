@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.core import validators
+from django.core.validators import RegexValidator
 from django.db import models
 
 from Hestia.core.validators import validate_only_letters
@@ -37,6 +38,11 @@ class AppUser(AbstractUser):
             validate_only_letters,
         )
     )
+
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,10}$',
+                                 message="Phone number must be entered in the format:"
+                                         " '0881234567'. Up to 10 digits allowed.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=14, blank=True)
 
     email = models.EmailField(
         unique=True,
