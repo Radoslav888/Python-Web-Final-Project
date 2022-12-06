@@ -1,14 +1,25 @@
 .profile {
-    margin: 180px 30% 0 30%;
-    border: 2px solid black;
+    margin: 130px 20% 0 20%;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    border-radius: 20px;
 }
 
 .profile-data {
     display: flex;
     gap: 100px;
     justify-content: center;
+    margin: 20px;
 }
+.listings{
+    margin-left: 30px;
+}
+.listings p{
+    font-size: 30px;
 
+}
 .profile_img {
     display: inline;
 }
@@ -57,4 +68,8 @@
     margin: 5px;
     font-size: 20px;
 }
-
+.no-listings{
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+}

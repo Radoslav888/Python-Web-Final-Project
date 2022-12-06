@@ -15,6 +15,7 @@ UserModel = get_user_model()
 
 # Create your views here.
 
+
 @login_required
 def add_listing(request):
     ImageFormSet = modelformset_factory(Photo,
@@ -76,3 +77,7 @@ class ListingDetailsView(views.DetailView):
         context['is_owner'] = self.request.user == self.object
         context['user_profile'] = UserModel.objects.filter(pk=self.object.user_id).get()
         return context
+
+
+def advanced_search(request):
+    pass

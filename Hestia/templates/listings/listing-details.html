@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block page_content %}
-    <div class="listing">
+    <div class="listing" id="listing">
         <div class="slideshow-container-hestia">
             {% if object.photo_set.all %}
                 {% for photo in object.photo_set.all %}
@@ -18,14 +18,20 @@
             <a class="next" onclick="plusSlides(1)">&#10095;</a>
         </div>
         <div class="profile-info-container">
+            <a href="{% url 'details user' pk=user_profile.pk %}">
             {% if user_profile.get_full_name != ' ' %}
                 {{ user_profile.get_full_name }}
             {% else %}
                 {{ user_profile.username }}
             {% endif %}
+            </a>
+             <h3>{{ user_profile.email }}</h3>
+             <h3>{{ user_profile.phone_number }}</h3>
+            <a href="tel:{{ user_profile.phone_number }}">CLICK TO CALL</a>
         </div>
         <div class="info-container">
             <h1>{{ object.name }}</h1>
+            <h2>{{ object.location }}</h2>
             <h2>{{ object.price|floatformat:"g" }} EUR</h2>
             <p>{{ object.description }}</p>
         </div>

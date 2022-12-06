@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic as views
@@ -29,15 +30,40 @@ class SignOutView(auth_views.LogoutView):
     next_page = reverse_lazy('index')
 
 
-class UserDetailsView(views.DetailView):
-    template_name = 'accounts/profile-details-page.html'
-    model = UserModel
+# class UserDetailsView(views.DetailView):
+#     template_name = 'accounts/profile-details-page.html'
+#     model = UserModel
+#
+#     paginate_by = 4
+#
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['is_owner'] = self.request.user == self.object
+#         context['listings'] = self.object.listing_set.all
+#
+#         return context
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['is_owner'] = self.request.user == self.object
 
-        return context
+def user_details_view(request, pk):
+    user = UserModel.objects.filter(pk=pk).get()
+    listings = user.listing_set.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(listings, 4)
+
+    try:
+        listings = paginator.page(page)
+    except PageNotAnInteger:
+        listings = paginator.page(1)
+    except EmptyPage:
+        listings = paginator.page(paginator.num_pages)
+
+    context = {
+        'listings': listings,
+        'object': user,
+        'is_owner': request.user == user,
+    }
+    return render(request, 'accounts/profile-details-page.html', context)
 
 
 class EditUserView(views.UpdateView):

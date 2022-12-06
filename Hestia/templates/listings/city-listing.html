@@ -11,7 +11,7 @@
             <div class="listing-view">
                 <div class="listing-image">
                     {%  if listing.photo_set.first.image %}
-                    <a href="{% url 'listing details' slug=listing.slug %}"><img
+                    <a href="{% url 'listing details' slug=listing.slug %}#listing"><img
                             src="/media/{{ listing.photo_set.first.image }}" alt="listing photo"></a>
                     {% else %}
                         <a href="{% url 'listing details' slug=listing.slug %}"><img
@@ -19,10 +19,11 @@
                     {% endif %}
                 </div>
                 <div class="listing-info">
-                    <a href="{% url 'listing details' slug=listing.slug %}">{{ listing.name }}</a>
+                    <a href="{% url 'listing details' slug=listing.slug %}#listing">{{ listing.name }}</a>
                     <h3>{{ listing.price|floatformat:'-2g' }} EUR</h3>
                     <h3>Type: {{ listing.type }}</h3>
                     <h3>Size: {{ listing.size }} km2</h3>
+                    <h3><a href="{% url 'city listings' slug=listing.location.slug %}">City: {{ listing.location }}</a></h3>
                     <h4>{{ listing.description }}</h4>
                 </div>
 

@@ -27,4 +27,8 @@ class City(models.Model):
     def __str__(self):
         return self.name
 
-
+    def listings_count(self):
+        listings = 0
+        for _ in self.listing_set.all():
+            listings += 1
+        return listings

@@ -2,7 +2,7 @@
 {% load static %}
 {% block page_content %}
 
-<div class="profile">
+    <div class="profile">
 
         <div class="profile-data">
             <div class="profile_img">
@@ -34,11 +34,80 @@
                 <p class="email">{{ object.phone_number }}</p>
             </div>
         </div>
-    <div class="listings">
-            <p>My listings</p>
+        <div class="listings">
+            {% if is_owner %}
+                <div class="last-3">
+                    <p>Last 3 viewed:</p>
+                </div>
+                <p>My listings:</p>
+                </div>
+            {% else %}
+                <p>Listings:</p>
+                </div>
+            {% endif %}
+    {% if not listings %}
+        <h1 class="no-listings">No listings yet!</h1>
+    {% else %}
+    {% for listing in listings %}
+        <div class="listing-view">
+            <div class="listing-image">
+                {% if listing.photo_set.first.image %}
+                    <a href="{% url 'listing details' slug=listing.slug %}#listing"><img
+                            src="/media/{{ listing.photo_set.first.image }}" alt="listing photo"></a>
+                {% else %}
+                    <a href="{% url 'listing details' slug=listing.slug %}"><img
+                            src="{% static 'images/no-image.jpg' %}" alt="listing photo"></a>
+                {% endif %}
+            </div>
+            <div class="listing-info">
+                <a href="{% url 'listing details' slug=listing.slug %}#listing">{{ listing.name }}</a>
+                <h3>{{ listing.price|floatformat:'-2g' }} EUR</h3>
+                <h3>Type: {{ listing.type }}</h3>
+                <h3>Size: {{ listing.size }} km2</h3>
+                <h3><a href="{% url 'city listings' slug=listing.location.slug %}">City: {{ listing.location }}</a></h3>
+                <h4>{{ listing.description }}</h4>
+            </div>
+
         </div>
-        <div class="watchlist">
-            <p>Watchlist</p>
-        </div>
-</div>
+    {% endfor %}
+    {% endif %}
+
+    {% if listings.has_other_pages %}
+    <nav class="paginator">
+        <ul class="pagination justify-content-center">
+            {% if listings.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ listings.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link" aria-hidden="true">&laquo;</span>
+                </li>
+            {% endif %}
+
+            {% for p in listings.paginator.page_range %}
+                {% if listings.number == p %}
+                    <li class="page-item"><a class="page-link" style="color: darkgoldenrod;" href="#">{{ p }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if listings.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ listings.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link" aria-hidden="true">&raquo;</span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
 {% endblock %}

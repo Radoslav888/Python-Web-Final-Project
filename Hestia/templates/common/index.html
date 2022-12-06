@@ -14,8 +14,11 @@
                 <a href="{% url 'city listings' slug=city.slug %}">
                     <img src="{{ city.pictureURL }}" alt="Picture of {{ city.name }}">
                 </a>
+                <div class="city-name">
+                    <a href="{% url 'city listings' slug=city.slug %}">{{ city.name }}({{ city.listings_count }})</a>
+                </div>
             </div>
-            <a href="{% url 'city listings' slug=city.slug %}">{{ city.name }}</a>
+
         {% endfor %}
     </div>
 {% endblock %}
