@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'Hestia.common',
     'Hestia.accounts',
     'Hestia.listings',
+    'Hestia.news',
 ]
 
 MIDDLEWARE = [

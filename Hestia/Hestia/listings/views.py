@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 
 from Hestia.common.models import City
-from Hestia.listings.forms import ListingCreateForm, PhotoForm
+from Hestia.listings.forms import ListingCreateForm, PhotoForm, SearchListingForm
 from Hestia.listings.models import Photo, Listing
 
 UserModel = get_user_model()
@@ -79,5 +79,27 @@ class ListingDetailsView(views.DetailView):
         return context
 
 
-def advanced_search(request):
-    pass
+def search(request):
+    search_form = SearchListingForm(request.GET)
+    search_pattern = None
+    if search_form.is_valid():
+        search_pattern = search_form.cleaned_data['listing_name']
+    listings = Listing.objects.all()
+    if search_pattern:
+        listings = listings.filter(name__icontains=search_pattern)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(listings, 4)
+
+    try:
+        listings = paginator.page(page)
+    except PageNotAnInteger:
+        listings = paginator.page(1)
+    except EmptyPage:
+        listings = paginator.page(paginator.num_pages)
+
+    context = {
+        'listings': listings,
+        'search_form': search_form,
+    }
+
+    return render(request, 'listings/search-listing.html', context)

@@ -125,11 +125,16 @@
 }
 .listing-image{
     display: inline-block;
-    width: 20%;
+    width: 250px;
     margin: 10px;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
 }
 .listing-view img{
-    width: 100%;
+    max-width: 100%;
+    height: 100%;
     display: block;
 }
 .listing-info a{

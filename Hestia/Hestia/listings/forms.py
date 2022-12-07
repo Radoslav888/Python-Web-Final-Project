@@ -30,3 +30,9 @@ class PhotoForm(forms.ModelForm):
         model = Photo
         fields = ('image', )
 
+
+class SearchListingForm(forms.Form):
+    listing_name = forms.CharField(
+        max_length=50,
+        required=False,
+    )

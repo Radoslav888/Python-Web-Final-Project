@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('Hestia.common.urls')),
     path('accounts/', include('Hestia.accounts.urls')),
     path('listings/', include('Hestia.listings.urls')),
+    path('news/', include('Hestia.news.urls')),
 
 ]
 

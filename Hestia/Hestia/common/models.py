@@ -3,6 +3,9 @@ from django.db import models
 
 
 class City(models.Model):
+    class Meta:
+        verbose_name_plural = "cities"
+
     MIN_NAME_LENGTH = 3
     MAX_NAME_LENGTH = 50
 
