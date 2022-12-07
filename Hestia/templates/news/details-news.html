@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_content %}
+    <div class="news" id="news">
+        <div class="back">
+            <a href="{% url 'list news' %}">< Back to news</a>
+        </div>
+        <div class="news-title">
+            <h1>{{ object.title }}</h1>
+        </div>
+        <div class="news-image">
+            <img src="/media/{{ object.image }}" alt="news photo">
+        </div>
+        <div class="news-text">
+            <p>{{ object.text|linebreaksbr }}</p>
+        </div>
+    </div>
+    <div class="last-three">
+        {% for n in last_news %}
+            {{ n.title }}
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

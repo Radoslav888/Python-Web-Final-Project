@@ -14,7 +14,6 @@ class News(models.Model):
     MAX_TITLE_LENGTH = 50
 
     MIN_TEXT_LENGTH = 50
-    MAX_TEXT_LENGTH = 900
 
     title = models.CharField(
         max_length=MAX_TITLE_LENGTH,
@@ -25,7 +24,6 @@ class News(models.Model):
         blank=False,
     )
     text = models.TextField(
-        max_length=MAX_TEXT_LENGTH,
         validators=(
             MinLengthValidator(MIN_TEXT_LENGTH),
         ),

@@ -3,6 +3,7 @@
 @import "profile.css";
 @import "listingForms.css";
 @import "listing.css";
+@import "news.css";
 
 body {
     background-color: aliceblue;

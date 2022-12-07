@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_content %}
+    <div class="listing-section">
+        {% for obj in news %}
+            <div class="listing-view">
+                <div class="listing-image">
+
+                    <a href="{% url 'details news' slug=obj.slug %}"><img
+                            src="/media/{{ obj.image }}" alt="news photo"></a>
+
+                </div>
+                <div class="listing-info">
+                    <a href="{% url 'details news' slug=obj.slug %}">{{ obj.title }}</a>
+                    <h4>{{ obj.text }}</h4>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+    {% if news.has_other_pages %}
+        <nav class="paginator">
+            <ul class="pagination justify-content-center">
+                {% if listings.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ news.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link" aria-hidden="true">&laquo;</span>
+                    </li>
+                {% endif %}
+
+                {% for p in news.paginator.page_range %}
+                    {% if news.number == p %}
+                        <li class="page-item"><a class="page-link" style="color: darkgoldenrod;" href="#">{{ p }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if news.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ news.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link" aria-hidden="true">&raquo;</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endblock %}
