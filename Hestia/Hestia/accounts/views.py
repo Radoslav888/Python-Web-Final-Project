@@ -30,21 +30,6 @@ class SignOutView(auth_views.LogoutView):
     next_page = reverse_lazy('index')
 
 
-# class UserDetailsView(views.DetailView):
-#     template_name = 'accounts/profile-details-page.html'
-#     model = UserModel
-#
-#     paginate_by = 4
-#
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['is_owner'] = self.request.user == self.object
-#         context['listings'] = self.object.listing_set.all
-#
-#         return context
-
-
 def user_details_view(request, pk):
     user = UserModel.objects.filter(pk=pk).get()
     listings = user.listing_set.all()
@@ -81,3 +66,4 @@ class UserDeleteView(views.DeleteView):
     template_name = 'accounts/profile-delete-page.html'
     model = UserModel
     success_url = reverse_lazy('index')
+

@@ -110,5 +110,5 @@ class Photo(models.Model):
 
     listing = models.ForeignKey(
         Listing,
-        on_delete=models.RESTRICT,
+        on_delete=models.CASCADE,
     )

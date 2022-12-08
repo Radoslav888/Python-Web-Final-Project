@@ -30,10 +30,23 @@
 }
 
 .info-container {
-
     width: 600px;
     margin: 0 30px 30px 30px;
     padding: 10px;
+}
+.info-container h1{
+    margin-bottom: 20px;
+}
+.info-container h2{
+    margin-top: 20px;
+}
+.info-container a{
+    text-decoration: none;
+	color: darkgoldenrod;
+	padding: 10px;
+	border: 1px solid;
+	border-radius: 3px;
+    margin-right: 10px;
 }
 
 .profile-info-container {

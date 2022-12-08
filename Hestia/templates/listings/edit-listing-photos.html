@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_content %}
+
+    <div class="photos-edit">
+        <div class="back-edit">
+            <a href="{% url 'listing details' slug=listing.slug %}">< Back to listing</a>
+        </div>
+        <h1>"{{ listing.name }}"'s photos</h1>
+        {% for photo in photos %}
+            <div class="edit-photo">
+                <img src="/media/{{ photo.image }}">
+                <a href="{% url 'edit photo' pk=photo.pk %}">Edit</a>
+                <a href="{% url 'delete photo' pk=photo.pk %}">Delete</a>
+            </div>
+        {% endfor %}
+        {% for _ in extra %}
+            <div class="edit-photo">
+                <a href="{% url 'add photo' slug=listing.slug %}">Add</a>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
