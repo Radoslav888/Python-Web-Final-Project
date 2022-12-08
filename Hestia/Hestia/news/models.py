@@ -37,6 +37,7 @@ class News(models.Model):
         validators=(validate_file_less_than_5mb,),
     )
     slug = models.SlugField(
+        max_length=100,
         unique=True,
         null=False,
         blank=True,

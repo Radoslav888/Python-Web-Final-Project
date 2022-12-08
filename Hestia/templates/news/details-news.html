@@ -16,8 +16,21 @@
         </div>
     </div>
     <div class="last-three">
+        <h1>Suggested news</h1>
         {% for n in last_news %}
-            {{ n.title }}
+            <div class="news-last">
+{#                <img src="/media/{{ n.image }}" alt="news photo">#}
+{#                {{ n.title }}#}
+                <div class="news-image-last">
+
+                    <a href="{% url 'details news' slug=n.slug %}"><img
+                            src="/media/{{ n.image }}" alt="news photo"></a>
+
+                </div>
+                <div class="news-title-last">
+                    <a href="{% url 'details news' slug=n.slug %}">{{ n.title }}</a>
+                </div>
+            </div>
         {% endfor %}
     </div>
 
