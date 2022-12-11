@@ -99,6 +99,9 @@ class Listing(models.Model):
 
         return super().save(*args, **kwargs)
 
+    def __str__(self):
+        return f'{self.name}'
+
 
 class Photo(models.Model):
     image = models.ImageField(
@@ -112,3 +115,6 @@ class Photo(models.Model):
         Listing,
         on_delete=models.CASCADE,
     )
+
+    def __str__(self):
+        return f'{self.id}-{self.listing.name}'
