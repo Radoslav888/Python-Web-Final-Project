@@ -53,7 +53,12 @@
 	margin-top: 10px;
 	height: 30px;
 }
-
+.login-register-box p{
+	margin: 0;
+}
+.login-register-box a{
+	color: darkgoldenrod;
+}
 .second-option {
 	text-align: center;
 	padding: 20px;

@@ -9,6 +9,7 @@
         {% csrf_token %}
     </form>
     <div class="listing-section">
+    {% if listings %}
         {% for listing in listings %}
             <div class="listing-view">
                 <div class="listing-image">
@@ -32,6 +33,9 @@
 
             </div>
         {% endfor %}
+    {% else %}
+        <h1>No listings yet!</h1>
+    {% endif %}
     </div>
     {% if listings.has_other_pages %}
         <nav class="paginator">

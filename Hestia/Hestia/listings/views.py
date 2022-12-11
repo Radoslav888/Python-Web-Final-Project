@@ -3,10 +3,9 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.contrib.auth.decorators import login_required
-from django.core import exceptions
-from django.forms import modelformset_factory
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import mixins as auth_mixins
+from django.shortcuts import render, redirect
+
 
 from Hestia.common.models import City
 from Hestia.listings.forms import ListingCreateForm, PhotoForm, SearchListingForm
@@ -19,32 +18,21 @@ UserModel = get_user_model()
 
 @login_required
 def add_listing(request):
-    ImageFormSet = modelformset_factory(Photo,
-                                        form=PhotoForm, extra=5)
     if request.method == 'POST':
         ListingForm = ListingCreateForm(request.POST)
-        formset = ImageFormSet(request.POST, request.FILES,
-                               queryset=Photo.objects.none())
 
-        if ListingForm.is_valid() and formset.is_valid():
+        if ListingForm.is_valid():
             listing_form = ListingForm.save(commit=False)
             listing_form.user = request.user
             listing_form.save()
 
-            for form in formset.cleaned_data:
-                if form:
-                    image = form['image']
-                    photo = Photo(listing=listing_form, image=image)
-                    photo.save()
-            return redirect('index')
+            return redirect('edit listing photos', slug=listing_form.slug)
         else:
-            print(ListingForm.errors, formset.errors)
+            print(ListingForm.errors)
     else:
         ListingForm = ListingCreateForm()
-        formset = ImageFormSet(queryset=Photo.objects.none())
     context = {
         'listing_form': ListingForm,
-        'formset': formset,
     }
     return render(request, 'listings/add-listing.html', context)
 
@@ -74,6 +62,7 @@ def edit_listing(request, slug):
     return render(request, 'listings/edit-listing.html', context)
 
 
+@login_required
 def edit_listing_photos(request, slug):
     listing = Listing.objects.filter(slug=slug).get()
     photos = listing.photo_set.all()
@@ -85,6 +74,7 @@ def edit_listing_photos(request, slug):
 
     }
     return render(request, 'listings/edit-listing-photos.html', context)
+
 
 def city_listings(request, slug):
     city = City.objects.filter(slug=slug).get()
@@ -117,10 +107,12 @@ class ListingDetailsView(views.DetailView):
         context['user_profile'] = owner
         return context
 
+
 class DeleteListingView(views.DeleteView):
     template_name = 'listings/listing-delete.html'
     model = Listing
     success_url = reverse_lazy('index')
+
 
 def search(request):
     search_form = SearchListingForm(request.GET)
@@ -148,6 +140,7 @@ def search(request):
     return render(request, 'listings/search-listing.html', context)
 
 
+@login_required
 def add_photo(request, slug):
     listing = Listing.objects.filter(slug=slug).get()
     if request.method == 'POST':

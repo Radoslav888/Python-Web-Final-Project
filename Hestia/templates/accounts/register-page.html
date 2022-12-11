@@ -19,7 +19,8 @@
                     {{ form.password1|placeholder:'Password' }}
                     {{ form.password2.errors }}
                     {{ form.password2|placeholder:'Repeat Password' }}
-                    <button>Register!</button>
+                    <p>Already have an account? <a href="{% url 'log in' %}">Log in!</a></p>
+                    <button>Register</button>
                     {% csrf_token %}
                 </form>
             </div>

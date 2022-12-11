@@ -2,6 +2,7 @@
 {% load static %}
 {% block page_content %}
     <div class="listing-section">
+    {% if news %}
         {% for obj in news %}
             <div class="listing-view">
                 <div class="listing-image">
@@ -17,6 +18,9 @@
 
             </div>
         {% endfor %}
+    {% else %}
+    <h1>No news yet!</h1>
+    {% endif %}
     </div>
     {% if news.has_other_pages %}
         <nav class="paginator">

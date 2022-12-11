@@ -11,10 +11,6 @@
                         {% endfor %}
 
                     {{ listing_form.as_p }}
-                    {{ formset.management_form }}
-                    {% for form in formset %}
-                        <div class="file-upload">{{ form }}</div>
-                    {% endfor %}
 
 
                     <input type="submit" name="submit" value="Submit"/>

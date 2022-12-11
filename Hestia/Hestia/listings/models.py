@@ -53,7 +53,7 @@ class Listing(models.Model):
     size = models.PositiveIntegerField(
         null=False,
         blank=False,
-        verbose_name='Size(km2)'
+        verbose_name='Size(m2)'
     )
     type = models.CharField(
         choices=Type.choices(),

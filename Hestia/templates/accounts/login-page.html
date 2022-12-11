@@ -14,6 +14,7 @@
                 <form action="{% url 'log in' %}" method="post">
                     {{ form }}
                     <input type="hidden" name="next" value="{{ next }}">
+                    <p>Don't have an account? <a href="{% url 'register' %}">Register!</a></p>
                     <button>Log In</button>
                     {% csrf_token %}
                 </form>
