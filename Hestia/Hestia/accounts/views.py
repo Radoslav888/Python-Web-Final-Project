@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.contrib.auth import views as auth_views, get_user_model, login
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from Hestia.accounts.forms import UserCreateForm
 
 UserModel = get_user_model()
@@ -26,7 +26,7 @@ class SignUpView(views.CreateView):
         return result
 
 
-class SignOutView(auth_views.LogoutView):
+class SignOutView(LoginRequiredMixin, auth_views.LogoutView):
     next_page = reverse_lazy('index')
 
 
@@ -51,7 +51,7 @@ def user_details_view(request, pk):
     return render(request, 'accounts/profile-details-page.html', context)
 
 
-class EditUserView(views.UpdateView):
+class EditUserView(LoginRequiredMixin, views.UpdateView):
     template_name = 'accounts/profile-edit-page.html'
     model = UserModel
     fields = ('first_name', 'last_name', 'email', 'phone_number')
@@ -62,7 +62,7 @@ class EditUserView(views.UpdateView):
         })
 
 
-class UserDeleteView(views.DeleteView):
+class UserDeleteView(LoginRequiredMixin, views.DeleteView):
     template_name = 'accounts/profile-delete-page.html'
     model = UserModel
     success_url = reverse_lazy('index')

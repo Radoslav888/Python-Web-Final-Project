@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.urls import reverse_lazy
 from django.views import generic as views
@@ -108,7 +109,7 @@ class ListingDetailsView(views.DetailView):
         return context
 
 
-class DeleteListingView(views.DeleteView):
+class DeleteListingView(LoginRequiredMixin, views.DeleteView):
     template_name = 'listings/listing-delete.html'
     model = Listing
     success_url = reverse_lazy('index')
@@ -159,7 +160,7 @@ def add_photo(request, slug):
     return render(request, 'listings/add-photo.html', context)
 
 
-class EditPhotoView(views.UpdateView):
+class EditPhotoView(LoginRequiredMixin, views.UpdateView):
     template_name = 'listings/edit-photo.html'
     model = Photo
 
