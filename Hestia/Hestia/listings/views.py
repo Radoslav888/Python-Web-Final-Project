@@ -160,13 +160,14 @@ def add_photo(request, slug):
     return render(request, 'listings/add-photo.html', context)
 
 
-class EditPhotoView(LoginRequiredMixin, views.UpdateView):
+class EditPhotoView(views.UpdateView, LoginRequiredMixin):
     template_name = 'listings/edit-photo.html'
     model = Photo
+    fields = ('image',)
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('details user', kwargs={
-            'pk': self.request.user.pk,
+        return reverse_lazy('edit listing photos', kwargs={
+            'slug': self.object.listing.slug,
         })
 
 

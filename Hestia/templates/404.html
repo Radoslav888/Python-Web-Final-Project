@@ -1,18 +1,20 @@
-{%  extends 'base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block page_content %}
-    <div class="not-found-img">
-        <img src="{% static 'images/no-image.jpg' %}" alt="404 not found gif">
-    </div>
+    <div class="not-found-box">
+        <div class="not-found-img">
+            <img src="{% static 'images/no-image.jpg' %}" alt="404 not found gif">
+        </div>
 
-    <div class="not-found">
-        <h1>
-            Uh oh,<br> something broke.
-        </h1>
+        <div class="not-found">
+            <h1>
+                Uh oh,<br> something broke.
+            </h1>
 
-        <h3>Error 404 - page not found.</h3>
-        <a href="{% url 'index' %}">
-            <button>Return to Hestia</button>
-        </a>
+            <h3>Error 404 - page not found.</h3>
+            <a href="{% url 'index' %}">
+                <button>Return to Hestia</button>
+            </a>
+        </div>
     </div>
 {% endblock %}

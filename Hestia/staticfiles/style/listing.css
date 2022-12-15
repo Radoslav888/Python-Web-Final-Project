@@ -4,7 +4,9 @@
     border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
     border-radius: 20px;
-    margin: 50px 200px 50px 200px;
+    margin-left:400px;
+    margin-top:40px;
+    display: inline-block;
 }
 
 * {
@@ -23,7 +25,7 @@
 }
 
 .slideshow-container-hestia {
-    width: 600px;
+    max-width: 600px;
     position: relative;
     margin: 30px;
     display: inline-block;
@@ -35,18 +37,34 @@
     padding: 10px;
 }
 .info-container h1{
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+
 }
 .info-container h2{
-    margin-top: 20px;
+    display: inline-block;
+    font-size: 20px;
+    margin-right: 10px;
+
 }
-.info-container a{
+.buttons a{
     text-decoration: none;
 	color: darkgoldenrod;
 	padding: 10px;
 	border: 1px solid;
 	border-radius: 3px;
     margin-right: 10px;
+    display: inline-block;
+}
+
+.city a{
+        color: darkgoldenrod;
+    display: inline-block;
+    font-size: 20px;
+    margin-right: 10px;
+    text-decoration: none;
+}
+.city {
+    display: inline-block;
 }
 
 .profile-info-container {
@@ -54,7 +72,9 @@
     border: 2px solid;
     border-radius: 10px;
     padding: 10px;
-    margin: auto;
+    vertical-align: top;
+    margin-top: 80px;
+    margin-left: 40px;
 }
 .profile-info-container a{
     text-decoration: none;
