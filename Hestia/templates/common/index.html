@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load cache %}
 {% block page_content %}
+{% cache 300 average_price %}
     <div class="banner">
         <img class='banner' src="{% static 'images/banner.jpg' %}" alt="banner">
         <h1>Average price per square meter: {{ average_price|floatformat:'g' }} EUR</h1>
     </div>
+{% endcache %}
     <div class="info">
         <h1 class='text'>Explore listings all over Bulgaria!</h1>
     </div>
