@@ -10,7 +10,6 @@
         {% for photo in photos %}
             <div class="edit-photo">
                 <img src="/media/{{ photo.image }}">
-                <a href="{% url 'edit photo' pk=photo.pk %}">Edit</a>
                 <a href="{% url 'delete photo' pk=photo.pk %}">Delete</a>
             </div>
         {% endfor %}
