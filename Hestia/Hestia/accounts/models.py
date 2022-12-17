@@ -42,7 +42,7 @@ class AppUser(AbstractUser):
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,10}$',
                                  message="Phone number must be entered in the format:"
                                          " '0881234567'. Up to 10 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=14, blank=True)
+    phone_number = models.CharField(validators=(phone_regex,), max_length=14, blank=True)
 
     email = models.EmailField(
         unique=True,

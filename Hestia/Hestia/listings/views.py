@@ -120,7 +120,7 @@ def search(request):
     search_pattern = None
     if search_form.is_valid():
         search_pattern = search_form.cleaned_data['listing_name']
-    listings = Listing.objects.all()
+    listings = Listing.objects.all().order_by('price')
     if search_pattern:
         listings = listings.filter(name__icontains=search_pattern)
     page = request.GET.get('page', 1)
@@ -136,6 +136,7 @@ def search(request):
     context = {
         'listings': listings,
         'search_form': search_form,
+        'username': request.user.username or 'Anonymous',
     }
 
     return render(request, 'listings/search-listing.html', context)

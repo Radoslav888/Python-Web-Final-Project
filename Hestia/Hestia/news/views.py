@@ -12,7 +12,7 @@ class ListNewsView(views.ListView):
 
 
 def news_listings(request):
-    news = News.objects.all()
+    news = News.objects.all().order_by('title')
     page = request.GET.get('page', 1)
     paginator = Paginator(news, 2)
 

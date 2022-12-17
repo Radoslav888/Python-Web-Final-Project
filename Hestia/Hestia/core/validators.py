@@ -22,3 +22,5 @@ def validate_image_size(value):
     if h > 2000 or h < 300:
         raise exceptions.ValidationError(f"The image is {h} pixels high. It's supposed to be between 300px and 2000px!")
     return value
+
+
